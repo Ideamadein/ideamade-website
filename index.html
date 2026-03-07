@@ -1,0 +1,1088 @@
+﻿<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ideamade | Creative Agency</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Manrope:wght@400;500;700;800&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="images/favicon.png" type="image/png" />
+  <style>
+    /* Split text classes needed for absolute control */
+    .word {
+      overflow: hidden;
+      padding-bottom: 0.1em;
+      margin-bottom: -0.1em;
+      transform-origin: bottom;
+    }
+
+    .char {
+      display: inline-block;
+    }
+
+    html.lenis {
+      height: auto;
+    }
+
+    .lenis.lenis-smooth {
+      scroll-behavior: auto !important;
+    }
+
+    .lenis.lenis-smooth [data-lenis-prevent] {
+      overscroll-behavior: contain;
+    }
+
+    .lenis.lenis-stopped {
+      overflow: hidden;
+    }
+
+    .lenis.lenis-scrolling iframe {
+      pointer-events: none;
+    }
+
+    /* Floating Chatbot Styles */
+    .floating-chat-widget {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 1000;
+      font-family: var(--font-body);
+    }
+
+    .chat-toggle-btn {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: var(--purple);
+      color: var(--white);
+      border: 3px solid var(--black);
+      box-shadow: 4px 4px 0 var(--black);
+      font-size: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .chat-toggle-btn:hover {
+      transform: scale(1.1);
+      background: var(--pink);
+      color: var(--black);
+    }
+
+    .chat-window {
+      position: absolute;
+      bottom: 80px;
+      right: 0;
+      width: 350px;
+      border: 4px solid var(--black);
+      background: var(--white);
+      box-shadow: 8px 8px 0 var(--pink);
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      transform-origin: bottom right;
+    }
+
+    .chat-window.active {
+      display: flex;
+      animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+
+    @keyframes popIn {
+      from {
+        transform: scale(0);
+        opacity: 0;
+      }
+
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .chat-header {
+      background: var(--black);
+      color: var(--white);
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      font-weight: 800;
+    }
+
+    .chat-close-btn {
+      background: transparent;
+      border: none;
+      color: var(--gold);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .chat-box {
+      height: 300px;
+      padding: 15px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      background: var(--white);
+      position: relative;
+    }
+
+    .chat-box::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: radial-gradient(var(--purple) 2px, transparent 2px);
+      background-size: 20px 20px;
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    .message {
+      max-width: 85%;
+      padding: 10px 15px;
+      font-size: 1rem;
+      border: 2px solid var(--black);
+      font-weight: 600;
+      position: relative;
+      z-index: 2;
+      line-height: 1.4;
+    }
+
+    .message.bot {
+      align-self: flex-start;
+      background: var(--pink);
+      color: var(--black);
+      box-shadow: 3px 3px 0 var(--black);
+    }
+
+    .message.user {
+      align-self: flex-end;
+      background: var(--gold);
+      color: var(--black);
+      text-align: right;
+      box-shadow: -3px 3px 0 var(--black);
+    }
+
+    .chat-input-area {
+      display: flex;
+      border-top: 3px solid var(--black);
+    }
+
+    .chat-input {
+      flex: 1;
+      padding: 15px;
+      border: none;
+      outline: none;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      font-weight: 500;
+      background: var(--white);
+      color: var(--black);
+    }
+
+    .chat-submit {
+      padding: 0 20px;
+      background: var(--purple);
+      color: var(--white);
+      border: none;
+      border-left: 3px solid var(--black);
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 800;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <a href="#home" class="logo">
+      <img src="images/favicon.png" alt="Ideamade" />
+    </a>
+    <div class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#team">Our Team</a>
+      <a href="#contact" class="btn-nav">Contact Us</a>
+    </div>
+    <!-- Mobile Menu Toggle -->
+    <div class="menu-btn" onclick="
+          document.querySelector('.nav-links').classList.toggle('active')
+        ">
+      MENU
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header id="home" class="hero">
+    <div class="hero-left">
+      <h1 class="hero-title">
+        OUR<br />
+        SERVICE<br />
+        <span class="color-purple">SOLVES</span><br />
+        ANY<br />
+        PROBLEM.
+      </h1>
+      <p class="hero-subtitle">
+        High-quality, relevant content is essential for engaging and retaining
+        online audiences. Digital marketing agencies often create content
+        strategies, produce blog posts, articles, videos.
+      </p>
+    </div>
+    <div class="hero-right">
+      <img src="images/hero_creative_art.png" alt="Creative Agency 3D Art" class="hero-image" />
+    </div>
+  </header>
+
+  <!-- Infinite Text Marquee -->
+  <div class="marquee-wrap">
+    <div class="marquee">
+      <span>WE GROW BUSINESSES</span>
+      <span class="dot"></span>
+      <span>CREATIVE STRATEGISTS</span>
+      <span class="dot"></span>
+      <span>DIGITAL DOMINANCE</span>
+      <span class="dot"></span>
+      <span>QUALITY MARKETING</span>
+      <span class="dot"></span>
+      <span>BRAND ACCELERATION</span>
+      <span class="dot"></span>
+      <span>CREATIVE STRATEGISTS</span>
+      <span class="dot"></span>
+      <span>REVENUE DRIVEN</span>
+      <span class="dot"></span>
+      <span>QUALITY MARKETING</span>
+      <span class="dot"></span>
+    </div>
+  </div>
+
+  <!-- About Section -->
+  <section id="about" class="about section-pad bg-white">
+    <div class="about-split">
+      <div class="about-left">
+        <h2 class="huge-text">WE ARE<br>IDEAMADE<br><span class="color-gold">MEDIA.</span></h2>
+      </div>
+      <div class="about-right">
+        <p class="about-lead">
+          We are a full-service digital marketing and creative agency dedicated to transforming brands and driving
+          measurable growth. We blend visionary creativity with data-driven precision.
+        </p>
+        <div class="about-grid">
+          <div class="about-block border-purple">
+            <h3 class="about-step bg-purple color-white border-black">WHO WE ARE</h3>
+            <p>A passionate team of digital strategists, visionary designers, and performance marketers committed to
+              elevating your brand's digital presence.</p>
+          </div>
+          <div class="about-block border-pink">
+            <h3 class="about-step bg-pink color-black border-black">WHAT WE DO</h3>
+            <p>From social media management and branding to high-converting ad campaigns and advanced SEO, we deliver
+              customized, end-to-end digital solutions.</p>
+          </div>
+          <div class="about-block border-gold">
+            <h3 class="about-step bg-gold color-black border-black">OUR MISSION</h3>
+            <p>To empower businesses by crafting compelling narratives and deploying innovative marketing strategies
+              that guarantee sustainable revenue growth.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="stats section-pad bg-black color-white">
+    <div class="stats-grid">
+      <div class="stat-box bg-purple border-black shadow-pink color-white">
+        <div class="stat-number">250+</div>
+        <div class="stat-label">Happy Clients</div>
+      </div>
+      <div class="stat-box bg-pink border-black shadow-gold color-black">
+        <div class="stat-number">$15M</div>
+        <div class="stat-label">Revenue Generated</div>
+      </div>
+      <div class="stat-box bg-gold border-black shadow-purple color-black">
+        <div class="stat-number">1.2K</div>
+        <div class="stat-label">Campaigns Live</div>
+      </div>
+      <div class="stat-box bg-white border-black shadow-black color-black">
+        <div class="stat-number">10+</div>
+        <div class="stat-label">Years Experience</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Grid -->
+  <section id="services" class="services section-pad bg-white">
+    <div class="services-header">
+      <h2 class="huge-text color-black">OUR ALL SERVICES</h2>
+      <a href="#services" class="btn-block bg-purple color-white">View All Services</a>
+    </div>
+    <div class="services-grid">
+      <div class="service-card shadow-purple">
+        <div class="service-num bg-purple">1</div>
+        <h3>Social Media Marketing (SMM)</h3>
+        <p>
+          Grow your brand on Instagram, Facebook, LinkedIn & more with
+          creative content, ads & engagement.
+        </p>
+      </div>
+
+      <div class="service-card shadow-pink">
+        <div class="service-num bg-pink">2</div>
+        <h3>Search Engine Optimization (SEO)</h3>
+        <p>
+          Improve your website ranking on Google with On-Page, Off-Page &
+          Technical SEO strategies.
+        </p>
+      </div>
+
+      <div class="service-card shadow-gold">
+        <div class="service-num bg-gold">3</div>
+        <h3>Pay-Per-Click Advertising (PPC)</h3>
+        <p>
+          Target the right audience with paid ads and maximize ROI through
+          Google Ads.
+        </p>
+      </div>
+
+      <div class="service-card shadow-black">
+        <div class="service-num bg-black">4</div>
+        <h3>Content Marketing</h3>
+        <p>
+          High-quality blogs, articles, and branded content to attract and
+          engage your audience.
+        </p>
+      </div>
+
+      <div class="service-card shadow-purple">
+        <div class="service-num bg-purple">5</div>
+        <h3>Graphic Design & Branding</h3>
+        <p>
+          Creative graphics, logo design, and branding solutions to make your
+          business stand out.
+        </p>
+      </div>
+
+      <div class="service-card shadow-pink">
+        <div class="service-num bg-pink">6</div>
+        <h3>Website Design & Development</h3>
+        <p>
+          Professional, responsive, and user-friendly websites built for
+          conversion.
+        </p>
+      </div>
+
+      <div class="service-card shadow-gold">
+        <div class="service-num bg-gold">7</div>
+        <h3>Email Marketing</h3>
+        <p>
+          Reach your customers directly with effective email campaigns.
+        </p>
+      </div>
+
+      <div class="service-card shadow-black">
+        <div class="service-num bg-black">8</div>
+        <h3>Video Marketing & Reels Creation</h3>
+        <p>
+          Engaging video content and reels to connect with your target
+          audience.
+        </p>
+      </div>
+
+      <div class="service-card shadow-purple">
+        <div class="service-num bg-purple">9</div>
+        <h3>Analytics & Reporting</h3>
+        <p>
+          Monthly performance reports to track growth and improve strategies.
+        </p>
+      </div>
+
+      <div class="service-card shadow-pink">
+        <div class="service-num bg-pink">10</div>
+        <h3>Video Editing</h3>
+        <p>
+          High-quality video editing for social media, ads, and branding. We
+          create engaging reels, promotional videos that connect with your
+          audience.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Portfolio / Featured Work -->
+  <section id="portfolio" class="portfolio section-pad bg-white">
+    <div class="services-header">
+      <h2 class="huge-text color-black">FEATURED WORK</h2>
+      <a href="portfolio.html" class="btn-block bg-pink color-black">View All Projects</a>
+    </div>
+    <div class="portfolio-grid">
+      <div class="portfolio-card shadow-purple">
+        <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&q=80&w=800"
+          alt="Rebranding Campaign" class="portfolio-img" />
+        <div class="portfolio-info">
+          <div class="portfolio-category bg-purple color-white">Brand Identity</div>
+          <h3 style="margin-top: 15px;">Neon Energy Rebrand</h3>
+          <p style="font-weight: 600;">Complete visual overhaul and social media strategy driving a 300% increase in
+            youth engagement.</p>
+        </div>
+      </div>
+
+      <div class="portfolio-card shadow-gold">
+        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800"
+          alt="SEO Growth" class="portfolio-img" />
+        <div class="portfolio-info">
+          <div class="portfolio-category bg-gold color-black">Technical SEO</div>
+          <h3 style="margin-top: 15px;">FinTech Organic Growth</h3>
+          <p style="font-weight: 600;">Ranked client for 50+ high-volume keywords, resulting in $2M+ in pipeline
+            generation.</p>
+        </div>
+      </div>
+
+      <div class="portfolio-card shadow-pink">
+        <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&q=80&w=800"
+          alt="Social Media" class="portfolio-img" />
+        <div class="portfolio-info">
+          <div class="portfolio-category bg-pink color-black">Social Media Ads</div>
+          <h3 style="margin-top: 15px;">Urban Apparel Launch</h3>
+          <p style="font-weight: 600;">Executed targeted Meta Ads that generated 5x ROAS within the first 30 days of
+            campaign launch.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section id="pricing" class="pricing section-pad bg-gold">
+    <h2 class="huge-text text-center">
+      TAKE A LOOK THE PERFECT PRICING PLAN TO GET STARTED
+    </h2>
+    <div class="pricing-grid">
+      <!-- Basic Plan -->
+      <div class="price-card bg-white">
+        <div class="plan-header bg-black color-white">
+          <h3>Basic Plan</h3>
+          <div class="price">4999.00</div>
+          <span>Per Month</span>
+        </div>
+        <ul class="features">
+          <li>✓ Social Media Account Setup</li>
+          <li>✓ 10 Post Design</li>
+          <li>✓ 5 Reels</li>
+          <li>✓ Ads Runs</li>
+          <li>✓ 1 Facebook Cover</li>
+          <li class="unavailable">❌ 1 Shoot</li>
+          <li class="unavailable">❌ SMO</li>
+          <li class="unavailable">❌ Pinterest and Linkdin</li>
+          <li class="unavailable">❌ Google Ads</li>
+        </ul>
+        <a href="#contact" class="btn-block bg-pink color-white">CHOOSE PLAN</a>
+      </div>
+
+      <!-- Standard Plan -->
+      <div class="price-card bg-white scale-up relative">
+        <div class="popular-tag bg-pink color-white border-black">
+          POPULAR
+        </div>
+        <div class="plan-header bg-purple color-white">
+          <h3>Standard Plan</h3>
+          <div class="price">7999.00</div>
+          <span>Per Month</span>
+        </div>
+        <ul class="features">
+          <li>✓ Social Media Account Setup</li>
+          <li>✓ 15 Post Design</li>
+          <li>✓ 10 Reels</li>
+          <li>✓ Ads Run</li>
+          <li>✓ SMO</li>
+          <li>✓ 1 Facebook Cover</li>
+          <li class="unavailable">❌ 1 Shoot</li>
+          <li class="unavailable">❌ Pinterest and Linkdin</li>
+          <li class="unavailable">❌ Google Ads</li>
+        </ul>
+        <a href="#contact" class="btn-block bg-purple color-white">CHOOSE PLAN</a>
+      </div>
+
+      <!-- Premium Plan -->
+      <div class="price-card bg-white">
+        <div class="plan-header bg-black color-white">
+          <h3>Premium Plan</h3>
+          <div class="price">10999.00</div>
+          <span>Per Month</span>
+        </div>
+        <ul class="features">
+          <li>✓ Social Media Account Setup</li>
+          <li>✓ 20 Post Design</li>
+          <li>✓ 10 Reels</li>
+          <li>✓ Ads Runs</li>
+          <li>✓ SMO</li>
+          <li>✓ 1 Facebook Cover</li>
+          <li>✓ 1 Shoot</li>
+          <li class="unavailable">❌ Pinterest and Linkdin</li>
+          <li class="unavailable">❌ Google Ads</li>
+        </ul>
+        <a href="#contact" class="btn-block bg-pink color-white">CHOOSE PLAN</a>
+      </div>
+
+      <!-- Premium Plus Plan -->
+      <div class="price-card bg-white">
+        <div class="plan-header bg-black color-white">
+          <h3>Premium Plus Plan</h3>
+          <div class="price">15999.00</div>
+          <span>Per Month</span>
+        </div>
+        <ul class="features">
+          <li>✓ Social Media Account Setup</li>
+          <li>✓ 20 Post Design</li>
+          <li>✓ 10 Reels</li>
+          <li>✓ Ads Runs</li>
+          <li>✓ SMO</li>
+          <li>✓ 1 Facebook Cover</li>
+          <li>✓ 1 Shoot</li>
+          <li>✓ Pinterest and Linkdin</li>
+          <li>✓ Google Ads</li>
+        </ul>
+        <a href="#contact" class="btn-block bg-purple color-white">CHOOSE PLAN</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team Section -->
+  <section id="team" class="team section-pad bg-white">
+    <div class="services-header">
+      <h2 class="huge-text color-black">MEET OUR EXPERTS</h2>
+    </div>
+    <div class="team-grid">
+      <div class="team-card shadow-purple">
+        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=600"
+          alt="Sarah Jenkins" class="team-img" />
+        <div class="team-info">
+          <h3>Sarah Jenkins</h3>
+          <p class="color-purple">CEO & Head of Strategy</p>
+        </div>
+      </div>
+      <div class="team-card shadow-gold">
+        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=600"
+          alt="Marcus Thompson" class="team-img" />
+        <div class="team-info">
+          <h3>Marcus Thompson</h3>
+          <p class="color-gold">Director of Performance Marketing</p>
+        </div>
+      </div>
+      <div class="team-card shadow-pink">
+        <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=600"
+          alt="Elise Richards" class="team-img" />
+        <div class="team-info">
+          <h3>Elise Richards</h3>
+          <p class="color-pink">Lead Creative Designer</p>
+        </div>
+      </div>
+      <div class="team-card shadow-black">
+        <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=600"
+          alt="David Chen" class="team-img" />
+        <div class="team-info">
+          <h3>David Chen</h3>
+          <p class="color-black">Technical SEO Specialist</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="testimonials section-pad bg-purple"
+    style="padding: 100px 0 100px 0; border-bottom: 4px solid var(--black); overflow: hidden;">
+
+    <div class="testimo-head" style="padding: 0 40px; margin-bottom: 60px;">
+      <h2 class="huge-text color-white" style="text-shadow: 4px 4px 0 var(--black); line-height: 1;">CLIENT FEEDBACK
+      </h2>
+      <p style="font-size: 1.5rem; font-weight: 700; color: var(--black); margin-top: 20px;">Swipe to see what our
+        partners think about us.</p>
+    </div>
+
+    <!-- Horizontal Scroll Snap Container -->
+    <div class="testimo-horizontal-scroll" style="
+      display: flex;
+      gap: 40px;
+      padding: 0 40px 40px 40px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: thin;
+      scrollbar-color: var(--black) var(--purple);
+    ">
+
+      <!-- Slide 1 -->
+      <div class="testimo-card" style="background: var(--pink);">
+        <p class="testimo-text">
+          "Before Ideamade, we were invisible online. Within 3 months of their SEO and Digital PR campaigns, we doubled
+          our organic traffic and conversions skyrocketed. They are machines."
+        </p>
+        <div
+          style="display: flex; align-items: center; gap: 20px; border-top: 4px solid var(--black); padding-top: 30px;">
+          <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=150"
+            alt="Avatar"
+            style="width: 70px; height: 70px; border-radius: 50%; border: 4px solid var(--black); object-fit: cover;">
+          <div>
+            <h4
+              style="font-family: var(--font-display); font-weight: 800; font-size: 1.3rem; text-transform: uppercase;">
+              Sarah Jenkins</h4>
+            <p style="font-weight: 800; color: var(--white); text-transform: uppercase;">CMO, FinTech Innovators</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 2 -->
+      <div class="testimo-card" style="background: var(--white);">
+        <p class="testimo-text">
+          "The brutalist approach they took to our brand identity was incredibly risky, but it paid off instantly. They
+          don't just build websites; they build magnetic digital experiences."
+        </p>
+        <div
+          style="display: flex; align-items: center; gap: 20px; border-top: 4px solid var(--black); padding-top: 30px;">
+          <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=150"
+            alt="Avatar"
+            style="width: 70px; height: 70px; border-radius: 50%; border: 4px solid var(--black); object-fit: cover;">
+          <div>
+            <h4
+              style="font-family: var(--font-display); font-weight: 800; font-size: 1.3rem; text-transform: uppercase;">
+              Marcus Chen</h4>
+            <p style="font-weight: 800; color: var(--purple); text-transform: uppercase;">Founder, Urban Edge</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 3 -->
+      <div class="testimo-card" style="background: var(--gold);">
+        <p class="testimo-text">
+          "The most creative and technically impressive agency we have ever partnered with. They dominate the local
+          search engine rankings because they know exactly how the algorithms work."
+        </p>
+        <div
+          style="display: flex; align-items: center; gap: 20px; border-top: 4px solid var(--black); padding-top: 30px;">
+          <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=150"
+            alt="Avatar"
+            style="width: 70px; height: 70px; border-radius: 50%; border: 4px solid var(--black); object-fit: cover;">
+          <div>
+            <h4
+              style="font-family: var(--font-display); font-weight: 800; font-size: 1.3rem; text-transform: uppercase;">
+              Emily Rodriguez</h4>
+            <p style="font-weight: 800; color: var(--white); text-transform: uppercase;">VP Marketing, NeoTech</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Custom sleek css for the testimonials -->
+    <style>
+      .testimo-card {
+        flex: 0 0 calc(33.333% - 27px);
+        min-width: 280px;
+        scroll-snap-align: center;
+        border: 4px solid var(--black);
+        padding: 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        box-shadow: 8px 8px 0 var(--black);
+      }
+
+      @media (max-width: 1024px) {
+        .testimo-card {
+          flex: 0 0 calc(50% - 20px);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .testimo-card {
+          flex: 0 0 calc(100vw - 80px);
+        }
+      }
+
+      .testimo-text {
+        font-family: var(--font-display);
+        font-size: 1.1rem;
+        font-weight: 700;
+        line-height: 1.5;
+        color: var(--black);
+        margin-bottom: 30px;
+      }
+
+      .testimo-horizontal-scroll::-webkit-scrollbar {
+        height: 12px;
+      }
+
+      .testimo-horizontal-scroll::-webkit-scrollbar-track {
+        background: transparent;
+        border-top: 4px solid var(--black);
+        border-bottom: 4px solid var(--black);
+      }
+
+      .testimo-horizontal-scroll::-webkit-scrollbar-thumb {
+        background-color: var(--black);
+        border: 2px solid var(--purple);
+      }
+    </style>
+  </section>
+
+  <!-- Blog Section -->
+  <section class="blog section-pad bg-white">
+    <h2 class="huge-text">SEE LATEST BLOGS</h2>
+    <div class="blog-grid" id="dynamic-blogs">
+      <!-- Live Dev.to blogs will be injected here automatically by script.js -->
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq section-pad bg-gold">
+    <h2 class="huge-text text-center">FREQUENTLY ASKED QUESTIONS</h2>
+    <div class="faq-grid">
+      <div class="faq-item shadow-black">
+        <div class="faq-question">HOW LONG DOES IT TAKE TO SEE RESULTS?</div>
+        <div class="faq-answer">For paid advertising (PPC/Social Ads), you can see traffic within 24-48 hours. For
+          organic strategies like SEO and Content Marketing, it typically takes 3-6 months to see significant momentum.
+        </div>
+      </div>
+      <div class="faq-item shadow-purple">
+        <div class="faq-question">DO YOU WORK WITH SMALL BUSINESSES?</div>
+        <div class="faq-answer">Absolutely. We have scalable pricing packages specifically designed to help local and
+          growing businesses compete with larger brands without breaking the bank.</div>
+      </div>
+      <div class="faq-item shadow-pink">
+        <div class="faq-question">DO I HAVE TO SIGN A LONG-TERM CONTRACT?</div>
+        <div class="faq-answer">No! We believe in earning your business every month. Most of our digital marketing
+          retainers are month-to-month, giving you full flexibility.</div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Final CTA -->
+  <section class="cta-section bg-purple color-white"
+    style="background-image: radial-gradient(var(--black) 2px, transparent 2px); background-size: 30px 30px;">
+    <h2 class="cta-title">READY TO DOMINATE<br>YOUR MARKET?</h2>
+    <p class="cta-subtitle">Stop guessing with your marketing budget. Let our team of experts craft a data-driven
+      strategy that actually converts.</p>
+    <a href="#contact" class="btn-block bg-gold color-black border-black shadow-black"
+      style="font-size: 1.5rem; padding: 20px 40px;">BOOK A FREE CONSULTATION</a>
+  </section>
+
+  <!-- Footer -->
+  <footer id="contact" class="footer border-top-black">
+    <div class="footer-top">
+      <div class="footer-col brand-col">
+        <img src="images/favicon.png" alt="Ideamade" class="footer-logo" />
+        <p>
+          We Grow Businesses using perfect & modern solutions. High-quality,
+          relevant content is essential.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-heading">Address</h4>
+        <p>420 Innovation Avenue</p>
+        <p>Suite 800, Creative District, New York, NY 10001</p>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-heading">Our Contact</h4>
+        <p>
+          <a href="mailto:info@ideamade.com" class="footer-link">info@ideamade.com</a>
+        </p>
+        <p>
+          <a href="tel:+18005550199" class="footer-link">+1 (800) 555-0199</a>
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-heading">Quick Links</h4>
+        <a href="#home" class="footer-link">Home</a>
+        <a href="#services" class="footer-link">Our All Services</a>
+        <a href="#about" class="footer-link">About Ideamade</a>
+        <a href="help.html" class="footer-link">Help</a>
+        <a href="#contact" class="footer-link">Contact Us</a>
+        <a href="privacy.html" class="footer-link">Privacy Policy</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom bg-black color-white">
+      <p>© Copyright 2026 All Rights Reserved by Ideamade</p>
+      <p style="margin-top: 10px; font-size: 0.9rem; color: #aaa;">This project is made and maintained by Devopsly
+        Studios</p>
+    </div>
+  </footer>
+
+  <!-- Premium Animation Stack -->
+  <script src="https://unpkg.com/@studio-freight/lenis@1.0.33/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/split-type"></script>
+
+  <script>
+    // 1. Initialize Lenis Smooth Scroll
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      direction: 'vertical',
+      gestureDirection: 'vertical',
+      smooth: true,
+      mouseMultiplier: 1,
+      smoothTouch: false,
+      touchMultiplier: 2,
+      infinite: false,
+    });
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+
+    // Integrate Lenis with GSAP ScrollTrigger
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Updates ScrollTrigger on Lenis scroll
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add((time) => {
+      lenis.raf(time * 1000);
+    });
+    gsap.ticker.lagSmoothing(0, 0);
+
+    // 2. Setup GSAP Animations
+    document.addEventListener("DOMContentLoaded", (event) => {
+
+      // Hero Animation Sequence
+      const heroTl = gsap.timeline();
+
+      // Split the hero text to animate words/characters
+      const heroTitle = new SplitType('.hero-title', { types: 'lines, words, chars' });
+
+      heroTl.from(heroTitle.chars, {
+        opacity: 0,
+        y: 50,
+        rotateX: -90,
+        stagger: 0.02,
+        duration: 1,
+        ease: "back.out(1.7)",
+        transformOrigin: "bottom center"
+      })
+        .from('.hero-subtitle', {
+          opacity: 0,
+          x: -50,
+          duration: 0.8,
+          ease: "power3.out"
+        }, "-=0.5")
+        .from('.hero-image', {
+          opacity: 0,
+          scale: 0.8,
+          rotation: 5,
+          duration: 1.2,
+          ease: "power4.out"
+        }, "-=0.8");
+
+      // Set up Parallax on Hero Image
+      gsap.to('.hero-image', {
+        yPercent: 30,
+        ease: "none",
+        scrollTrigger: {
+          trigger: ".hero",
+          start: "top top",
+          end: "bottom top",
+          scrub: true
+        }
+      });
+
+      // Animate Section Titles
+      const sectionTitles = gsap.utils.toArray('.huge-text');
+      sectionTitles.forEach(title => {
+        const splitTitle = new SplitType(title, { types: 'chars' });
+        gsap.from(splitTitle.chars, {
+          opacity: 0,
+          y: 30,
+          scale: 0.8,
+          stagger: 0.05,
+          duration: 0.8,
+          ease: "back.out(1.5)",
+          scrollTrigger: {
+            trigger: title,
+            start: "top 85%",
+            toggleActions: "play none none reverse"
+          }
+        });
+      });
+
+      // Animate Staggered Grids (About, Services, Pricing, Blog)
+      const grids = [
+        { selector: '.about-block', trigger: '.about-grid' },
+        { selector: '.service-card', trigger: '.services-grid' },
+        { selector: '.price-card', trigger: '.pricing-grid' },
+        { selector: '.stat-box', trigger: '.stats-grid' },
+        { selector: '.portfolio-card', trigger: '.portfolio-grid' },
+        { selector: '.faq-item', trigger: '.faq-grid' },
+        { selector: '.blog-card', trigger: '.blog-grid' },
+        { selector: '.team-card', trigger: '.team-grid' },
+        { selector: '.footer-col', trigger: '.footer-top' }
+      ];
+
+      grids.forEach(grid => {
+        const items = gsap.utils.toArray(grid.selector);
+        items.forEach(item => {
+          gsap.fromTo(item,
+            { opacity: 0, y: 60, rotation: 2 },
+            {
+              opacity: 1,
+              y: 0,
+              rotation: 0,
+              duration: 0.8,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: item,
+                start: "top 90%",
+                toggleActions: "play none none reverse"
+              }
+            }
+          );
+        });
+      });
+
+      // Floating animation for pricing cards "popular" hover effect replacement
+      gsap.to('.scale-up', {
+        y: -15,
+        duration: 2,
+        ease: "sine.inOut",
+        yoyo: true,
+        repeat: -1
+      });
+
+    });
+  </script>
+
+  <!-- Floating Chatbot Widget -->
+  <div class="floating-chat-widget">
+    <div class="chat-window" id="floatingChatWindow">
+      <div class="chat-header">
+        <span>Ideamade Assistant</span>
+        <button class="chat-close-btn" onclick="toggleChat()">×</button>
+      </div>
+      <div class="chat-box" id="floatingChatBox">
+        <div class="message bot">
+          HELLO! I am the functional Ideamade Bot. 🤖<br><br>How can I help you grow your business today? Try asking me
+          about our <b>services</b>, <b>pricing plans</b>, or <b>contact info</b>.
+        </div>
+      </div>
+      <div class="chat-input-area">
+        <input type="text" id="floatingChatInput" class="chat-input" placeholder="Type..."
+          onkeypress="if(event.key === 'Enter') sendFloatingMessage()" />
+        <button class="chat-submit" onclick="sendFloatingMessage()">SEND</button>
+      </div>
+    </div>
+    <button class="chat-toggle-btn" onclick="toggleChat()">💬</button>
+  </div>
+
+  <script>
+    function toggleChat() {
+      const chatWin = document.getElementById('floatingChatWindow');
+      chatWin.classList.toggle('active');
+    }
+
+    function sendFloatingMessage() {
+      const input = document.getElementById('floatingChatInput');
+      const message = input.value.trim();
+      if (!message) return;
+
+      // Add user message
+      addFloatingMessage(message, 'user');
+      input.value = '';
+
+      // Wait state (simulate typing)
+      setTimeout(() => {
+        const response = getBotResponse(message.toLowerCase());
+        addFloatingMessage(response, 'bot');
+      }, 600);
+    }
+
+    function addFloatingMessage(text, sender) {
+      const chatBox = document.getElementById('floatingChatBox');
+      const msgDiv = document.createElement('div');
+      msgDiv.className = `message ${sender}`;
+      msgDiv.innerHTML = text.replace(/\n/g, '<br>');
+      chatBox.appendChild(msgDiv);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    function getBotResponse(msg) {
+      msg = msg.toLowerCase();
+
+      // Greetings
+      if (msg.match(/\b(hi|hello|hey|greetings|what's up)\b/)) {
+        const greetings = ["Hi there! 👋 How can we help you boost your brand today?", "Hello! 🤖 Ready to achieve digital dominance?", "Hey! How can Ideamade assist your business today?"];
+        return greetings[Math.floor(Math.random() * greetings.length)];
+      }
+      // How are you / identity
+      else if (msg.match(/\b(how are you|how do you do)\b/)) {
+        return "I'm doing great, functioning at 100% capacity! Ready to answer your questions about Ideamade.";
+      }
+      else if (msg.match(/\b(who are you|who made you|what are you|who created you|developer)\b/)) {
+        return "I am the official Ideamade Assistant Bot! 🤖 Built to help you navigate our services and scale your business.\n\nNote: This project is expertly made and maintained by Devopsly Studios.";
+      }
+      // Pricing
+      else if (msg.match(/\b(price|pricing|cost|plans|how much|budget|cheap|expensive)\b/)) {
+        return "Our pricing is transparent and scalable!\n\n🔹 Basic Plan: ₹4,999/mo\n🔹 Standard Plan: ₹7,999/mo (Popular)\n🔹 Premium Plan: ₹10,999/mo\n🔹 Premium Plus: ₹15,999/mo\n\nAll plans include Social Media Setup and Post Designs! Check our Pricing section for precise details.";
+      }
+      // Services
+      else if (msg.match(/\b(service|services|offer|do you do|what do you do|help me with)\b/)) {
+        return "We're a full-suite creative agency! Our core services include:\n- Social Media Marketing (SMM)\n- Search Engine Optimization (SEO)\n- PPC & Google Ads\n- Content & Email Marketing\n- Web Design & Branding\n- Video Editing & Reels";
+      }
+      // Specific Services
+      else if (msg.match(/\b(seo|search engine|rank|google)\b/)) {
+        return "We specialize in both On-Page and Technical SEO. We can help rank your website on Google to drive high-quality organic traffic and generate pipeline revenue.";
+      }
+      else if (msg.match(/\b(web|website|design|brutalism|brutalist|development)\b/)) {
+        return "Our Web Design team builds professional, fast, and highly-converting websites. We love bold, minimalist, and brutalist design aesthetics that make a statement!";
+      }
+      else if (msg.match(/\b(social media|smm|instagram|facebook|linkedin|reels|tiktok)\b/)) {
+        return "We can manage your entire social media presence! From designing posts and editing reels to running targeted Meta Ads that generate massive ROI.";
+      }
+      // Portfolio / Proof
+      else if (msg.match(/\b(portfolio|work|case study|clients|proof|results)\b/)) {
+        return "We let our results speak for themselves. We've helped brands like Neon Energy grab a 300% engagement boost and SaaS startups with their content playbooks. Check out our 'Featured Work' page!";
+      }
+      // Small Business / Contracts
+      else if (msg.match(/\b(small business|startup|local|cancel|contract)\b/)) {
+        return "Yes, we love working with small businesses! Our retainers are month-to-month, meaning no long-term restrictive contracts. We earn your business every single month.";
+      }
+      // Contact
+      else if (msg.match(/\b(contact|email|phone|call|talk|human|support|meet)\b/)) {
+        return "Ready to talk strategy? You can email us at info@ideamade.com or call +1 (800) 555-0199. Alternatively, you can fill out a contact form at the bottom of our site!";
+      }
+      // Gratitude
+      else if (msg.match(/\b(thanks|thank you|awesome|great|cool|nice)\b/)) {
+        return "You're very welcome! Let me know if you need anything else.";
+      }
+      // Default / Unknown
+      else {
+        return "I'm a simple bot and might not have the answer to that specific question. 🤔\n\nFeel free to contact our human experts directly at info@ideamade.com, or ask me about our 'services' or 'pricing'!";
+      }
+    }
+  </script>
+
+  <script src="script.js"></script>
+</body>
+
+
+</html>

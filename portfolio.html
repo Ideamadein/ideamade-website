@@ -1,0 +1,364 @@
+﻿<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio | Ideamade Media</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Manrope:wght@400;500;700;800&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="images/favicon.png" type="image/png" />
+  <style>
+    /* Split text classes needed for absolute control */
+    .word {
+      overflow: hidden;
+      padding-bottom: 0.1em;
+      margin-bottom: -0.1em;
+      transform-origin: bottom;
+    }
+
+    .char {
+      display: inline-block;
+    }
+
+    html.lenis {
+      height: auto;
+    }
+
+    .lenis.lenis-smooth {
+      scroll-behavior: auto !important;
+    }
+
+    .lenis.lenis-smooth [data-lenis-prevent] {
+      overscroll-behavior: contain;
+    }
+
+    .lenis.lenis-stopped {
+      overflow: hidden;
+    }
+
+    .lenis.lenis-scrolling iframe {
+      pointer-events: none;
+    }
+
+    .portfolio-header-container {
+      padding: 120px 40px 40px 40px;
+      text-align: center;
+      background: var(--white);
+      border-bottom: 4px solid var(--black);
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <a href="index.html" class="logo">
+      <img src="images/favicon.png" alt="Ideamade" />
+    </a>
+    <div class="nav-links">
+      <a href="index.html#home">Home</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#services">Services</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="index.html#pricing">Pricing</a>
+      <a href="index.html#team">Our Team</a>
+      <a href="index.html#contact" class="btn-nav">Contact Us</a>
+    </div>
+    <!-- Mobile Menu Toggle -->
+    <div class="menu-btn" onclick="
+          document.querySelector('.nav-links').classList.toggle('active')
+        ">
+      MENU
+    </div>
+  </nav>
+
+  <!-- Portfolio Header -->
+  <header class="portfolio-header-container">
+    <h1 class="huge-text">OUR<br><span class="color-gold">FEATURED</span> WORK</h1>
+    <p style="font-size: 1.2rem; font-weight: 700; max-width: 800px; margin: 20px auto 0;">Explore our latest case
+      studies and digital campaigns that drove massive growth for our clients.</p>
+  </header>
+
+  <!-- Portfolio / Featured Work -->
+  <section id="portfolio" class="portfolio section-pad bg-white">
+    <div class="portfolio-grid">
+      <div class="portfolio-card shadow-purple">
+        <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&q=80&w=800"
+          alt="Rebranding Campaign" class="portfolio-img" />
+        <div class="portfolio-info">
+          <div class="portfolio-category bg-purple color-white">Brand Identity</div>
+          <h3 style="margin-top: 15px;">Neon Energy Rebrand</h3>
+          <p style="font-weight: 600;">Complete visual overhaul and social media strategy driving a 300% increase in
+            youth engagement.</p>
+        </div>
+      </div>
+
+      <div class="portfolio-card shadow-gold">
+        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800"
+          alt="SEO Growth" class="portfolio-img" />
+        <div class="portfolio-info">
+          <div class="portfolio-category bg-gold color-black">Technical SEO</div>
+          <h3 style="margin-top: 15px;">FinTech Organic Growth</h3>
+          <p style="font-weight: 600;">Ranked client for 50+ high-volume keywords, resulting in $2M+ in pipeline
+            generation.</p>
+        </div>
+      </div>
+
+      <div class="portfolio-card shadow-pink">
+        <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&q=80&w=800"
+          alt="Social Media" class="portfolio-img" />
+        <div class="portfolio-info">
+          <div class="portfolio-category bg-pink color-black">Social Media Ads</div>
+          <h3 style="margin-top: 15px;">Urban Apparel Launch</h3>
+          <p style="font-weight: 600;">Executed targeted Meta Ads that generated 5x ROAS within the first 30 days of
+            campaign launch.</p>
+        </div>
+      </div>
+
+      <div class="portfolio-card shadow-black">
+        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800"
+          alt="Data Analytics" class="portfolio-img" />
+        <div class="portfolio-info">
+          <div class="portfolio-category bg-black color-white">Analytics Dashboard</div>
+          <h3 style="margin-top: 15px;">E-commerce Analytics</h3>
+          <p style="font-weight: 600;">Custom data visualization dashboard for a leading retail brand, reducing
+            reporting time by 60%.</p>
+        </div>
+      </div>
+
+      <div class="portfolio-card shadow-gold">
+        <img src="https://images.unsplash.com/photo-1432888622747-4eb9a8efeb07?auto=format&fit=crop&q=80&w=800"
+          alt="Web Design" class="portfolio-img" />
+        <div class="portfolio-info">
+          <div class="portfolio-category bg-gold color-black">Web Development</div>
+          <h3 style="margin-top: 15px;">Luxury Real Estate Portal</h3>
+          <p style="font-weight: 600;">A fully responsive, brutalist-inspired luxury property listing site driving a 45%
+            increase in lead generation.</p>
+        </div>
+      </div>
+
+      <div class="portfolio-card shadow-purple">
+        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800"
+          alt="Team Workshop" class="portfolio-img" />
+        <div class="portfolio-info">
+          <div class="portfolio-category bg-purple color-white">Content Strategy</div>
+          <h3 style="margin-top: 15px;">B2B Software Playbook</h3>
+          <p style="font-weight: 600;">Comprehensive content marketing playbook and 6-month roll-out strategy for a SaaS
+            startup.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+
+  <!-- Final CTA -->
+  <section class="cta-section bg-purple color-white"
+    style="background-image: radial-gradient(var(--black) 2px, transparent 2px); background-size: 30px 30px;">
+    <h2 class="cta-title">READY TO DOMINATE<br>YOUR MARKET?</h2>
+    <p class="cta-subtitle">Stop guessing with your marketing budget. Let our team of experts craft a data-driven
+      strategy that actually converts.</p>
+    <a href="#contact" class="btn-block bg-gold color-black border-black shadow-black"
+      style="font-size: 1.5rem; padding: 20px 40px;">BOOK A FREE CONSULTATION</a>
+  </section>
+
+  <!-- Footer -->
+  <footer id="contact" class="footer border-top-black">
+    <div class="footer-top">
+      <div class="footer-col brand-col">
+        <img src="images/favicon.png" alt="Ideamade" class="footer-logo" />
+        <p>
+          We Grow Businesses using perfect & modern solutions. High-quality,
+          relevant content is essential.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-heading">Address</h4>
+        <p>420 Innovation Avenue</p>
+        <p>Suite 800, Creative District, New York, NY 10001</p>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-heading">Our Contact</h4>
+        <p>
+          <a href="mailto:info@ideamade.com" class="footer-link">info@ideamade.com</a>
+        </p>
+        <p>
+          <a href="tel:+18005550199" class="footer-link">+1 (800) 555-0199</a>
+        </p>
+      </div>
+
+      <div class="footer-col" id="quickLinks">
+        <h4 class="footer-heading">Quick Links</h4>
+        <a href="#home" class="footer-link">Home</a>
+        <a href="#services" class="footer-link">Our All Services</a>
+        <a href="#about" class="footer-link">About Ideamade</a>
+        <a href="help.html" class="footer-link">Help</a>
+        <a href="#contact" class="footer-link">Contact Us</a>
+        <a href="privacy.html" class="footer-link">Privacy Policy</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom bg-black color-white">
+      <p> Copyright 2026 All Rights Reserved by Ideamade</p>
+      <p style="margin-top: 10px; font-size: 0.9rem; color: #aaa;">This project is made and maintained by Devopsly
+        Studios</p>
+    </div>
+  </footer>
+
+  <!-- Premium Animation Stack -->
+  <script src="https://unpkg.com/@studio-freight/lenis@1.0.33/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/split-type"></script>
+
+  <script>
+    // 1. Initialize Lenis Smooth Scroll
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      direction: 'vertical',
+      gestureDirection: 'vertical',
+      smooth: true,
+      mouseMultiplier: 1,
+      smoothTouch: false,
+      touchMultiplier: 2,
+      infinite: false,
+    });
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+
+    // Integrate Lenis with GSAP ScrollTrigger
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Updates ScrollTrigger on Lenis scroll
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add((time) => {
+      lenis.raf(time * 1000);
+    });
+    gsap.ticker.lagSmoothing(0, 0);
+
+    // 2. Setup GSAP Animations
+    document.addEventListener("DOMContentLoaded", (event) => {
+
+      // Hero Animation Sequence
+      const heroTl = gsap.timeline();
+
+      // Split the hero text to animate words/characters
+      const heroTitle = new SplitType('.hero-title', { types: 'lines, words, chars' });
+
+      heroTl.from(heroTitle.chars, {
+        opacity: 0,
+        y: 50,
+        rotateX: -90,
+        stagger: 0.02,
+        duration: 1,
+        ease: "back.out(1.7)",
+        transformOrigin: "bottom center"
+      })
+        .from('.hero-subtitle', {
+          opacity: 0,
+          x: -50,
+          duration: 0.8,
+          ease: "power3.out"
+        }, "-=0.5")
+        .from('.hero-image', {
+          opacity: 0,
+          scale: 0.8,
+          rotation: 5,
+          duration: 1.2,
+          ease: "power4.out"
+        }, "-=0.8");
+
+      // Set up Parallax on Hero Image
+      gsap.to('.hero-image', {
+        yPercent: 30,
+        ease: "none",
+        scrollTrigger: {
+          trigger: ".hero",
+          start: "top top",
+          end: "bottom top",
+          scrub: true
+        }
+      });
+
+      // Animate Section Titles
+      const sectionTitles = gsap.utils.toArray('.huge-text');
+      sectionTitles.forEach(title => {
+        const splitTitle = new SplitType(title, { types: 'chars' });
+        gsap.from(splitTitle.chars, {
+          opacity: 0,
+          y: 30,
+          scale: 0.8,
+          stagger: 0.05,
+          duration: 0.8,
+          ease: "back.out(1.5)",
+          scrollTrigger: {
+            trigger: title,
+            start: "top 85%",
+            toggleActions: "play none none reverse"
+          }
+        });
+      });
+
+      // Animate Staggered Grids (About, Services, Pricing, Blog)
+      const grids = [
+        { selector: '.about-block', trigger: '.about-grid' },
+        { selector: '.service-card', trigger: '.services-grid' },
+        { selector: '.price-card', trigger: '.pricing-grid' },
+        { selector: '.stat-box', trigger: '.stats-grid' },
+        { selector: '.portfolio-card', trigger: '.portfolio-grid' },
+        { selector: '.faq-item', trigger: '.faq-grid' },
+        { selector: '.blog-card', trigger: '.blog-grid' },
+        { selector: '.team-card', trigger: '.team-grid' },
+        { selector: '.footer-col', trigger: '.footer-top' }
+      ];
+
+      grids.forEach(grid => {
+        const items = gsap.utils.toArray(grid.selector);
+        items.forEach(item => {
+          gsap.fromTo(item,
+            { opacity: 0, y: 60, rotation: 2 },
+            {
+              opacity: 1,
+              y: 0,
+              rotation: 0,
+              duration: 0.8,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: item,
+                start: "top 90%",
+                toggleActions: "play none none reverse"
+              }
+            }
+          );
+        });
+      });
+
+      // Floating animation for pricing cards "popular" hover effect replacement
+      gsap.to('.scale-up', {
+        y: -15,
+        duration: 2,
+        ease: "sine.inOut",
+        yoyo: true,
+        repeat: -1
+      });
+
+    });
+  </script>
+  <script src="script.js"></script>
+</body>
+
+
+</html>
