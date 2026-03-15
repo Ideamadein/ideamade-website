@@ -1,12 +1,12 @@
-﻿:root {
+:root {
   --white: #000000;
   /* Deep Space Black */
   --black: #ffffff;
   /* White Stars, text, borders, shadows */
-  --purple: #1A2412;
-  /* Deep Olive Layering */
-  --pink: #344820;
-  /* Mid Olive Layering */
+  --purple: #6D972C;
+  /* Primary Olive Green */
+  --pink: #6D972C;
+  /* Primary Olive Green */
   --gold: #6D972C;
   /* Highlight Olive Green */
 
@@ -283,7 +283,6 @@ ul {
 .marquee-wrap {
   padding: 24px 0;
   border-bottom: 4px solid var(--black);
-  background: var(--gold);
   overflow: hidden;
   white-space: nowrap;
 }
@@ -559,7 +558,7 @@ ul {
   font-family: var(--font-display);
   font-size: 6rem;
   color: var(--black);
-  opacity: 0.1;
+  opacity: 1;
   line-height: 1;
 }
 
