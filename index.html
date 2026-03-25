@@ -304,6 +304,117 @@
         </div>
       </div>
     </div>
+    
+    <!-- Industries Section with Sorting Animation -->
+    <div class="industries-interactive" style="border-top: 4px solid var(--black); margin-top: 60px; padding: 60px 0;">
+      <h3 class="huge-text text-center color-white" style="font-size: 2rem; margin-bottom: 30px;">INDUSTRIES WE SERVE</h3>
+      
+      <!-- Filter Buttons -->
+      <div class="industry-filters" style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-bottom: 50px; padding: 0 20px;">
+        <button class="btn-block filter-btn active" onclick="filterIndustries(event, 'all')">ALL</button>
+        <button class="btn-block filter-btn" onclick="filterIndustries(event, 'manufacturing')">MANUFACTURING</button>
+        <button class="btn-block filter-btn" onclick="filterIndustries(event, 'construction')">CONSTRUCTION</button>
+        <button class="btn-block filter-btn" onclick="filterIndustries(event, 'tech')">COMMERCE & TECH</button>
+      </div>
+
+      <!-- Grid -->
+      <div class="industry-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; padding: 0 40px;">
+        
+        <div class="industry-card filter-item manufacturing construction" style="border: 4px solid var(--black); padding: 40px 30px; text-align: center; background: var(--pink); transition: all 0.3s ease;">
+          <h4 style="font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 15px; color: var(--white); text-transform: uppercase;">Bricks Industry</h4>
+          <p style="font-weight: 700; font-size: 1.1rem; color: var(--white);">High-converting marketing strategies tailored for brick manufacturers.</p>
+        </div>
+        
+        <div class="industry-card filter-item construction" style="border: 4px solid var(--black); padding: 40px 30px; text-align: center; background: var(--purple); transition: all 0.3s ease;">
+          <h4 style="font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 15px; color: var(--white); text-transform: uppercase;">Cement</h4>
+          <p style="font-weight: 700; font-size: 1.1rem; color: var(--white);">Digital growth and consistent enterprise lead gen for cement suppliers.</p>
+        </div>
+
+        <div class="industry-card filter-item manufacturing construction" style="border: 4px solid var(--black); padding: 40px 30px; text-align: center; background: var(--gold); transition: all 0.3s ease;">
+          <h4 style="font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 15px; color: var(--white); text-transform: uppercase;">Pipes & Steel</h4>
+          <p style="font-weight: 700; font-size: 1.1rem; color: var(--white);">B2B visibility campaigns for PVC, steel, and industrial pipes.</p>
+        </div>
+
+        <div class="industry-card filter-item construction" style="border: 4px solid var(--black); padding: 40px 30px; text-align: center; background: var(--pink); transition: all 0.3s ease;">
+          <h4 style="font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 15px; color: var(--white); text-transform: uppercase;">Real Estate</h4>
+          <p style="font-weight: 700; font-size: 1.1rem; color: var(--white);">High-quality targeted leads for property developers and housing contractors.</p>
+        </div>
+
+        <div class="industry-card filter-item tech" style="border: 4px solid var(--black); padding: 40px 30px; text-align: center; background: var(--purple); transition: all 0.3s ease;">
+          <h4 style="font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 15px; color: var(--white); text-transform: uppercase;">E-Commerce</h4>
+          <p style="font-weight: 700; font-size: 1.1rem; color: var(--white);">Driving massive tracking ROAS and scaling online retail brands globally.</p>
+        </div>
+
+        <div class="industry-card filter-item tech" style="border: 4px solid var(--black); padding: 40px 30px; text-align: center; background: var(--gold); transition: all 0.3s ease;">
+          <h4 style="font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 15px; color: var(--white); text-transform: uppercase;">SaaS & Software</h4>
+          <p style="font-weight: 700; font-size: 1.1rem; color: var(--white);">Growth hacking tech startups to success with laser-targeted ad campaigns.</p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Styles and JS for Industry Sorting Animation -->
+    <style>
+      .filter-btn {
+        background: var(--white);
+        color: var(--black);
+        transition: all 0.3s ease;
+      }
+      .filter-btn:hover {
+        transform: translateY(-4px);
+        box-shadow: 6px 6px 0 var(--black);
+        background: var(--pink);
+      }
+      .filter-btn.active {
+        background: var(--gold);
+        color: var(--white);
+        transform: translateY(-4px);
+        box-shadow: 6px 6px 0 var(--black);
+      }
+      .industry-card {
+        box-shadow: 8px 8px 0 var(--black);
+        opacity: 1;
+        transform: scale(1);
+      }
+      .industry-card:hover {
+        transform: translate(-5px, -5px) !important;
+        box-shadow: 12px 12px 0 var(--black) !important;
+      }
+    </style>
+    <script>
+      function filterIndustries(event, category) {
+        // Update styling for the buttons safely using the passed event
+        const buttons = document.querySelectorAll('.filter-btn');
+        buttons.forEach(btn => btn.classList.remove('active'));
+        if(event && event.currentTarget) {
+           event.currentTarget.classList.add('active');
+        }
+
+        // Execute grid sorting animation
+        const cards = document.querySelectorAll('.industry-card');
+        
+        cards.forEach(card => {
+          card.style.opacity = '0';
+          card.style.transform = 'scale(0.8)';
+        });
+
+        setTimeout(() => {
+          cards.forEach(card => {
+            if (category === 'all' || card.classList.contains(category)) {
+              card.style.display = 'block';
+              // Force reflow
+              void card.offsetWidth;
+              setTimeout(() => {
+                card.style.opacity = '1';
+                card.style.transform = 'scale(1)';
+              }, 50);
+            } else {
+              card.style.display = 'none';
+            }
+          });
+        }, 300);
+      }
+    </script>
   </section>
 
   <!-- Stats Section -->
@@ -781,8 +892,23 @@
       style="font-size: 1.5rem; padding: 20px 40px;">BOOK A FREE CONSULTATION</a>
   </section>
 
+  <!-- Contact Form Section -->
+  <section id="contact" class="contact-section section-pad bg-white">
+    <div class="services-header" style="justify-content: center; text-align: center; margin-bottom: 40px;">
+      <h2 class="huge-text color-black">GET IN TOUCH</h2>
+    </div>
+    <div class="contact-grid">
+      <form id="form" class="contact-form">
+        <input type="text" name="name" placeholder="Your Name" required class="form-input">
+        <input type="email" name="email" placeholder="Your Email" required class="form-input">
+        <textarea name="message" placeholder="How can we help you?" required class="form-input" rows="5"></textarea>
+        <button type="submit" class="btn-block bg-purple color-white border-black shadow-black" style="font-size: 1.2rem; padding: 15px 30px; text-align: center; width: 100%;">SEND MESSAGE</button>
+      </form>
+    </div>
+  </section>
+
   <!-- Footer -->
-  <footer id="contact" class="footer border-top-black">
+  <footer class="footer border-top-black">
     <div class="footer-top">
       <div class="footer-col brand-col">
         <img src="images/favicon.png" alt="Ideamade" class="footer-logo" />
@@ -821,10 +947,52 @@
 
     <div class="footer-bottom bg-white color-black">
       <p>© Copyright 2026 All Rights Reserved by Ideamade</p>
-      <p style="margin-top: 10px; font-size: 0.9rem; color: #aaa;">This project is made and maintained by Devopsly
-        Studios</p>
+      <p style="margin-top: 10px; font-size: 0.9rem; color: #aaa;">This project is made and maintained by <a href="https://www.devopslystudios.com" target="_blank" style="color: inherit; text-decoration: underline;">Devopsly
+        Studios</a></p>
     </div>
   </footer>
+
+  <!-- Contact Form Web3Forms Integration -->
+  <script>
+    const form = document.getElementById('form');
+    if (form) {
+      const submitBtn = form.querySelector('button[type="submit"]');
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(form);
+        formData.append("access_key", "056f91fa-046e-4d26-a79c-e2481c7f4293");
+
+        const originalText = submitBtn.textContent;
+
+        submitBtn.textContent = "Sending...";
+        submitBtn.disabled = true;
+
+        try {
+          const response = await fetch("https://api.web3forms.com/submit", {
+            method: "POST",
+            body: formData
+          });
+
+          const data = await response.json();
+
+          if (response.ok) {
+            alert("Success! Your message has been sent.");
+            form.reset();
+          } else {
+            alert("Error: " + data.message);
+          }
+
+        } catch (error) {
+          alert("Something went wrong. Please try again.");
+        } finally {
+          submitBtn.textContent = originalText;
+          submitBtn.disabled = false;
+        }
+      });
+    }
+  </script>
 
   <!-- Premium Animation Stack -->
   <script src="https://unpkg.com/@studio-freight/lenis@1.0.33/dist/lenis.min.js"></script>
