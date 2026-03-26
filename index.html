@@ -238,51 +238,6 @@
       color: var(--white);
       box-shadow: 6px 6px 0 var(--black);
     }
-
-    .form-group {
-      position: relative;
-      width: 100%;
-    }
-
-    .form-label {
-      display: block;
-      font-family: var(--font-display);
-      font-weight: 800;
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      margin-bottom: 8px;
-      color: var(--black);
-      letter-spacing: 1px;
-    }
-
-    .contact-info-strip {
-      display: flex;
-      justify-content: center;
-      gap: 40px;
-      margin-bottom: 50px;
-      flex-wrap: wrap;
-    }
-
-    .info-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-weight: 800;
-      text-transform: uppercase;
-      font-size: 0.9rem;
-    }
-
-    .info-icon {
-      width: 40px;
-      height: 40px;
-      background: var(--gold);
-      border: 3px solid var(--black);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.2rem;
-      box-shadow: 3px 3px 0 var(--black);
-    }
   </style>
 </head>
 
@@ -865,38 +820,14 @@
     <div class="services-header" style="justify-content: center; text-align: center; margin-bottom: 40px;">
       <h2 class="huge-text color-black">CONTACT US</h2>
     </div>
-    <div class="contact-info-strip">
-      <div class="info-item">
-        <div class="info-icon">📍</div>
-        <span>New York, NY</span>
-      </div>
-      <div class="info-item">
-        <div class="info-icon">📞</div>
-        <span>+1 (800) 555-0199</span>
-      </div>
-      <div class="info-item">
-        <div class="info-icon">✉️</div>
-        <span>info@ideamade.com</span>
-      </div>
-    </div>
-
     <div class="contact-grid">
       <form id="form" class="contact-form">
         <div class="form-row">
-          <div class="form-group">
-            <label class="form-label">Full Name</label>
-            <input type="text" name="name" placeholder="John Doe" required class="form-input">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Email Address</label>
-            <input type="email" name="email" placeholder="john@example.com" required class="form-input">
-          </div>
+          <input type="text" name="name" placeholder="Your Name" required class="form-input">
+          <input type="email" name="email" placeholder="Your Email" required class="form-input">
         </div>
-        <div class="form-group">
-          <label class="form-label">Message</label>
-          <textarea name="message" placeholder="Tell us about your project..." required class="form-input" rows="5"></textarea>
-        </div>
-        <button type="submit" class="btn-block bg-purple color-white border-black shadow-black" style="font-size: 1.3rem; padding: 20px; width: 100%; margin-top: 10px;">🚀 SEND MESSAGE</button>
+        <textarea name="message" placeholder="How can we help you?" required class="form-input" rows="5"></textarea>
+        <button type="submit" class="btn-block bg-purple color-white border-black shadow-black" style="font-size: 1.3rem; padding: 20px; width: 100%;">SEND MESSAGE</button>
       </form>
     </div>
   </section>
