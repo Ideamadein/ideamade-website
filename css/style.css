@@ -1,12 +1,12 @@
-﻿:root {
+:root {
   --white: #000000;
   /* Deep Space Black */
   --black: #ffffff;
   /* White Stars, text, borders, shadows */
-  --purple: #1A2412;
-  /* Deep Olive Layering */
-  --pink: #344820;
-  /* Mid Olive Layering */
+  --purple: #6D972C;
+  /* Primary Olive Green */
+  --pink: #6D972C;
+  /* Primary Olive Green */
   --gold: #6D972C;
   /* Highlight Olive Green */
 
